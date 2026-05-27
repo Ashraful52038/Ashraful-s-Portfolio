@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
+import Navbar from '@/components/Navbar';
 import { ReduxProvider } from '@/components/ReduxProvider';
-import Header from '@/components/Header';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <ReduxProvider>
           <AntdRegistry>
-            <Header />
+            <Navbar/>
             <main>{children}</main>
           </AntdRegistry>
         </ReduxProvider>
