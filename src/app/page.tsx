@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 /* ─── Data ──────────────────────────────────────────────────────── */
@@ -134,16 +135,30 @@ export default function Home() {
         {/* ── Hero ─────────────────────────────────────── */}
         <section style={{ padding: '80px 48px 72px', borderBottom: '0.5px solid var(--border)', position: 'relative', overflow: 'hidden' }}>
 
-          {/* Background decorative text */}
-          <div style={{
-            position: 'absolute', right: -20, top: 20,
-            fontFamily: 'var(--font-display)', fontSize: 'clamp(6rem, 16vw, 14rem)',
-            color: 'rgba(255,255,255,0.025)', fontWeight: 700, lineHeight: 1,
-            pointerEvents: 'none', userSelect: 'none', letterSpacing: '-0.04em',
-          }}>
-            DEV
+            <div style={{
+              position: 'absolute',
+              top: 40,
+              right: 60,
+              width: 500,
+              height: 500,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '3px solid var(--accent)',
+              boxShadow: '0 0 30px rgba(201,169,110,0.3)',
+              zIndex: 10,
+            }}>
+            <Image
+                src="/Ash.jpeg"
+                alt="Ashraful Islam"
+                width={500}
+                height={500}
+                style={{
+                  objectFit: 'cover',
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
           </div>
-
           {/* Status */}
           <div className={`reveal ${visible ? 'visible' : ''}`} style={{ marginBottom: 32 }}>
             <span style={{
