@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import PixelText from '@/components/PixelText';
 
 /* ─── Data ──────────────────────────────────────────────────────── */
 const STATS = [
@@ -95,7 +96,12 @@ export default function Home() {
         }
 
         body {
-          background: var(--bg);
+          background-color: var(--bg);
+          background-image:
+            linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+          background-size: 84px 84px;
+          background-position: center top;
           color: var(--text);
           font-family: var(--font-body);
           -webkit-font-smoothing: antialiased;
@@ -107,6 +113,32 @@ export default function Home() {
         }
 
         ::selection { background: var(--accent); color: #000; }
+
+        .sr-only {
+          position: absolute; width: 1px; height: 1px;
+          padding: 0; margin: -1px; overflow: hidden;
+          clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        /* ── Pixel-mosaic name: subtle shimmer sweep once the boxes land ── */
+        .pixel-name {
+          position: relative;
+          overflow: hidden;
+        }
+        .pixel-name::after {
+          content: '';
+          position: absolute; top: 0; left: -150%;
+          width: 55%; height: 100%;
+          background: linear-gradient(75deg, transparent, rgba(255,255,255,0.45), transparent);
+          mix-blend-mode: overlay;
+          pointer-events: none;
+          animation: pixel-shimmer 5s ease-in-out 3.2s infinite;
+        }
+        @keyframes pixel-shimmer {
+          0%   { left: -150%; }
+          35%  { left: 150%; }
+          100% { left: 150%; }
+        }
 
         .reveal {
           opacity: 0;
@@ -125,15 +157,6 @@ export default function Home() {
           position: fixed; inset: 0; pointer-events: none; z-index: 999;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
           opacity: 0.25;
-        }
-
-        .grid-overlay {
-          position: absolute; inset: 0; pointer-events: none;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-          background-size: 42px 42px;
-          mask-image: radial-gradient(ellipse 80% 60% at 70% 30%, black, transparent);
         }
 
         .hr { height: 0.5px; background: var(--border); width: 100%; }
@@ -389,8 +412,6 @@ export default function Home() {
           borderBottom: '0.5px solid var(--border)',
           position: 'relative', overflow: 'hidden',
         }}>
-          <div className="grid-overlay" />
-
           <div className="hero-inner">
 
             {/* ── Left: text content ── */}
@@ -427,15 +448,16 @@ export default function Home() {
                 </a>
               </div>
 
-              <h1 className={`reveal reveal-d1 ${visible ? 'visible' : ''}`} style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.6rem, 6vw, 5.5rem)',
-                fontWeight: 400, lineHeight: 1.06,
-                letterSpacing: '-0.02em', marginBottom: 8,
-                color: 'var(--text)',
-              }}>
-                Ashraful<br /><em style={{ color: 'var(--accent)' }}>Islam</em>
-              </h1>
+              <h1 className="sr-only">Ashraful Islam</h1>
+              <div
+                aria-hidden="true"
+                className={`pixel-name reveal reveal-d1 ${visible ? 'visible' : ''}`}
+                style={{ marginBottom: 8 }}
+              >
+                <PixelText text="ASHRAFUL" />
+                <div style={{ height: 'clamp(4px, 1.4vw, 10px)' }} />
+                <PixelText text="ISLAM" startDelay={1.35} />
+              </div>
 
               <p className={`reveal reveal-d2 ${visible ? 'visible' : ''}`} style={{
                 fontFamily: 'var(--font-mono)', fontSize: 11,
