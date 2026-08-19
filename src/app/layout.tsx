@@ -5,8 +5,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Ashraful Islam | Portfolio',
-  description: 'Professional portfolio showcasing my work and skills',
+  title: 'Ashraful Islam | Full Stack Developer & CEO, Hakaluki',
+  description: 'Portfolio of Ashraful Islam — Full Stack Developer and CEO of Hakaluki, a software development studio building scalable products and AI automation.',
 };
 
 export default function RootLayout({
